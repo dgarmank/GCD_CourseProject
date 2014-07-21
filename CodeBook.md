@@ -4,12 +4,17 @@ STEP 1a: read in measurement names for train and test datasets from file `UCI HA
 
 STEP 1b: remove or replace special characters in measurement names before assigning to column names for any data.frame.  Without this procedure, the special characters are replaced by periods and look “untidy” when the column names are assigned to the data.frames.  The code is copied below.
 
-`features$var_label <- gsub("-","_",features$var_label)
-features$var_label <- gsub("\\(\\)","",features$var_label)
-features$var_label <- gsub(",","_",features$var_label)
-features$var_label <- gsub("angle\\(","angle_",features$var_label)
-features$var_label <- gsub("ean\\)","ean",features$var_label)
-features$var_label <- gsub("ravity\\)","ravity",features$var_label)`
+`features$var_label <- gsub("-","_",features$var_label)`
+
+`features$var_label <- gsub("\\(\\)","",features$var_label)`
+
+`features$var_label <- gsub(",","_",features$var_label)`
+
+`features$var_label <- gsub("angle\\(","angle_",features$var_label)`
+
+`features$var_label <- gsub("ean\\)","ean",features$var_label)`
+
+`features$var_label <- gsub("ravity\\)","ravity",features$var_label)`
 
 STEP 1c: get training data into `train.dat`; no manipulations were performed.
 
@@ -47,11 +52,22 @@ To read this csv file from R, run the following code snippet:
 
 `getit <- read.csv("tidy_dataset.csv", stringsAsFactors = TRUE)`
 
-`> str(tidy_dataset)
-'data.frame':	180 obs. of  564 variables:
- type                               : Factor w/ 2 levels "TRAIN","TEST": 1 1 1 1 1 1 1 1 1 1 ...
- subID                              : int  1 1 1 1 1 1 3 3 3 3 ...
- actID                              : Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 1 2 3 4 5 6 1 2 3 4 ...
- tBodyAcc_mean_X                    : num  0.277 0.255 0.289 0.261 0.279 ...
- tBodyAcc_mean_Y                    : num  -0.01738 -0.02395 -0.00992 -0.00131 -0.01614 ...
- tBodyAcc_mean_Z  `
+
+### Dataset structure
+
+`> str(tidy_dataset)`
+
+`'data.frame':	180 obs. of  564 variables:`
+
+` $ type                               : <b>Factor</b> w/ 2 levels "TRAIN","TEST": 1 1 1 1 1 1 1 1 1 1 ...`
+
+` $ subID                              : <b>int</b>  1 1 1 1 1 1 3 3 3 3 ...`
+
+` $ actID                              : <b>Factor</b> w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 1 2 3 4 5 6 1 2 3 4 ...`
+
+` $ tBodyAcc_mean_X                    : <b>num</b>  0.277 0.255 0.289 0.261 0.279 ...`
+
+` $ tBodyAcc_mean_Y                    : <b>num</b>  -0.01738 -0.02395 -0.00992 -0.00131 -0.01614 ...`
+
+` $ tBodyAcc_mean_Z  `
+
