@@ -5,9 +5,9 @@ JHU Data Science GettingCleaningData, July 2014.  The purpose of this project
 is to demonstrate my ability to collect, work with, and clean a data set. The
 goal is to prepare tidy data that can be used for later analysis. 
 
-R script file `run_analysis.R` (hereafter referred to as the script) was
+<b>R script file `run_analysis.R` (hereafter referred to as the script) was
 developed and performs everything required.  It does not source other script
-files.
+files.</b>
 
 ### Input dataset and brief description
 
