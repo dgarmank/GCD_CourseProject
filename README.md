@@ -33,6 +33,7 @@ explanation, refer to the descriptive files in the unzipped folder
 
 ### Toplevel description of `run_analysis.R` script
 
+Execution time is approximately 50 seconds on a 2GHz dual-core Windows7 laptop.
 The script is sprinkled with comments above the code that refers to assignment
 instructions 1-5.  The code is further commented with sub-steps.  Thus STEP 1a,
 STEP 1b, etc. are sub-steps of assignment instruction #1.
@@ -43,7 +44,7 @@ additional columns that identify the subject (integer), the subject class
 WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING }.    The last 2 columns have
 been converted to “factor” variables in R.
 
-1.	data.frame `combined` is the concatenation (not the "merge") of the
+1.	data.frame `combined` is the concatenation (<b>not</b> the "merge") of the
 training and test data.  Rows were not reordered.
 2.	data.frame `extracted` is the same as `combined` except for
 removal of column measurements that do not contain the substrings “mean” or
