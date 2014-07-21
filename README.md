@@ -21,7 +21,14 @@ samples taken from a Samsung Galaxy S smartphone for 30 individuals.  The
 samples and additional derived data are from a 3D accelerometer and 3D gyro
 sensors.  There are 561 measurement variable columns of data.  For more
 explanation, refer to the descriptive files in the unzipped folder
-`UCI HAR Dataset`.
+`UCI HAR Dataset`, listed below:
+
+1.  `activity_labels.txt`,		subject activities { WALKING, ..., SITTING, etc. }
+2.  `features.txt`,				measurement variable column names
+3.  `features_info.txt`,		organization of sensor data
+4.  `README.txt`,				overall description of the dataset
+
+The website is http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
 
 ### Project Assignment Instructions
 
