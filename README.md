@@ -31,7 +31,7 @@ explanation, refer to the descriptive files in the unzipped folder
 4.	Appropriately labels the data set with descriptive variable names. 
 5.	Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 
-### Toplevel description of `run_analysis.R` script
+### Toplevel description of `*run_analysis.R*` script
 
 The script is sprinkled with comments above the code that refers to assignment
 instructions 1-5.  The code is further commented with sub-steps.  Thus STEP 1a,
@@ -43,9 +43,9 @@ additional columns that identify the subject (integer), the subject class
 WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING }.    The last 2 columns have
 been converted to “factor” variables in R.
 
-1.	data.frame `combined` is the concatenation (not the "merge") of the
+1.	data.frame `*combined*` is the concatenation (not the "merge") of the
 training and test data.  Rows were not reordered.
-2.	data.frame `extracted` is the same as `combined` except for
+2.	data.frame `**extracted**` is the same as `combined` except for
 removal of column measurements that do not contain the substrings “mean” or
 “std”.  This is my interpretation of assignment instruction 2.
 3.	data.frame `tidy_dataset` contains the mean of all measurement columns
@@ -57,4 +57,4 @@ following R code snippet to read it.
 
 `getit <- read.csv("tidy_dataset.csv", stringsAsFactors = TRUE)`
 
-
+Consult file `CodeBook.md` for more details.
