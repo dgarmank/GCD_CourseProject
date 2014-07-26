@@ -40,7 +40,7 @@ The website is http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition
 
 ### Toplevel description of `run_analysis.R` script
 
-Execution time is approximately 50 seconds on a 2GHz dual-core Windows7 laptop.
+Execution time is approximately 30 seconds on a 2GHz dual-core Windows7 laptop.
 The script is sprinkled with comments above the code that refers to assignment
 instructions 1-5.  The code is further commented with sub-steps.  Thus STEP 1a,
 STEP 1b, etc. are sub-steps of assignment instruction #1.
@@ -59,7 +59,7 @@ removal of column measurements that do not contain the substrings “mean” or
 3.	data.frame `tidy_dataset` contains the mean of all measurement columns
 from the large concatenated data.frame, per subject and per activity.  It
 contains 30*6=180 rows representing the subjects and their activities, each
-row containing the 561 measurement columns.
+row containing 3 subject attributes and 561 measurement columns.
 4.	file `tidy_dataset.csv` is created, approximately 1.8 megabytes.  Use the
 following R code snippet to read it.
 
@@ -69,7 +69,8 @@ Consult file `CodeBook.md` for more details.
 
 ### snapshot of `combined` data.frame
 
-similar for `extracted` data.frame, except fewer columns (not shown)
+Only a few of the measurement columns are shown.
+similar for `extracted` data.frame, except fewer columns
 
 ![combined](figures/combined.png)
 

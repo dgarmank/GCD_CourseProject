@@ -18,7 +18,7 @@ Consult the script for any more details not provided here!
 
 `features$var_label <- gsub("ravity\\)","ravity",features$var_label) # remove aberration`
 
-For example, `tBodyAcc-mean()-X` is converted to `tBodyAcc_mean_X`
+For example, the first measurement column variable name `tBodyAcc-mean()-X` is converted to `tBodyAcc_mean_X`
 
 <b>STEP 1c:</b>  get training data into `train.dat`; no manipulations were performed.
 
@@ -48,7 +48,7 @@ For example, `tBodyAcc-mean()-X` is converted to `tBodyAcc_mean_X`
 
 <b>STEP 2:</b>   identify column names containing substrings "mean" or "std".  Create new data.frame `extracted` with these columns only (plus the 3 columns in STEP 1d/1f).
 
-<b>STEP 5a:</b>  create an independent tidy dataset `tidy_dataset` [from `combined`, not `extracted`] that records the average of every measurement per subject and per activity.  180 rows are generated.  Console output status occurs for each row generated.
+<b>STEP 5a:</b>  create an independent tidy dataset `tidy_dataset` [from `combined`, not `extracted`] that records the average of every measurement per subject and per activity.  180 rows are generated.
 
 <b>STEP 5b:</b>  create a csv file for `tidy_dataset`.
 
@@ -63,15 +63,16 @@ To read this csv file from R, run the following code snippet:
 
 `'data.frame':	180 obs. of  564 variables:`
 
-` $ type                               : Factor w/ 2 levels "TRAIN","TEST": 1 1 1 1 1 1 1 1 1 1 ...`
+` $ actID    : Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 1 2 3 4 5 6 1 2 3 4 ...`
 
-` $ subID                              : int  1 1 1 1 1 1 3 3 3 3 ...`
+` $ subID    : int  1 1 1 1 1 1 2 2 2 2 ...`
 
-` $ actID                              : Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 1 2 3 4 5 6 1 2 3 4 ...`
+` $ type     : Factor w/ 2 levels "TRAIN","TEST": 1 1 1 1 1 1 2 2 2 2 ...`
 
-` $ tBodyAcc_mean_X                    : num  0.277 0.255 0.289 0.261 0.279 ...`
+` $ tBodyAcc_mean_X        : num  0.277 0.255 0.289 0.261 0.279 ...`
 
-` $ tBodyAcc_mean_Y                    : num  -0.01738 -0.02395 -0.00992 -0.00131 -0.01614 ...`
+` $ tBodyAcc_mean_Y        : num  -0.01738 -0.02395 -0.00992 -0.00131 ...`
 
-` $ tBodyAcc_mean_Z  `
+` $ tBodyAcc_mean_Z        : num  -0.1111 -0.0973 -0.1076 -0.1045 -0.1106 ...`
+
 

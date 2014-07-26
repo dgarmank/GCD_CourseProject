@@ -8,11 +8,12 @@
 # parses it into a matrix of numerics.  I have since replaced reading the
 # large datasets (only) with read.table(), but still not the smaller ones
 # due to time constraints.
-faster <- 1     # set 0 for slower file input alternative for large datasets
-TRAIN <- 1      # constant
-TEST  <- 2      # constant
+faster <- 1     # set 0 for slower, original file input for large datasets
+agg    <- 1     # set 0 for slower, original calculation of the means
+TRAIN  <- 1     # constant
+TEST   <- 2     # constant
 
-# STEP 1a: read in measurment names for train and test datasets
+# STEP 1a: read in measurement names for train and test datasets
 features <- read.csv("UCI HAR Dataset\\features.txt",
                     sep = " ",
                     header = FALSE,
@@ -26,12 +27,12 @@ features <- read.csv("UCI HAR Dataset\\features.txt",
 # or deleted as follows.  Furthermore, the names are left as-is otherwise.
 # There is no demotion to all lowercase for this project because it makes
 # the interpretation more difficult.
-features$var_label <- gsub("-","_",features$var_label)
-features$var_label <- gsub("\\(\\)","",features$var_label)
-features$var_label <- gsub(",","_",features$var_label)
-features$var_label <- gsub("angle\\(","angle_",features$var_label)
-features$var_label <- gsub("ean\\)","ean",features$var_label)
-features$var_label <- gsub("ravity\\)","ravity",features$var_label)
+features$var_label <- gsub("-","_",features$var_label)              # replace
+features$var_label <- gsub("\\(\\)","",features$var_label)          # remove
+features$var_label <- gsub(",","_",features$var_label)              # replace
+features$var_label <- gsub("angle\\(","angle_",features$var_label)  # replace 
+features$var_label <- gsub("ean\\)","ean",features$var_label)       # remove
+features$var_label <- gsub("ravity\\)","ravity",features$var_label) # remove
 
 # STEP 1c: get training data
 system.time(
@@ -144,40 +145,44 @@ object.size(extracted)  # watch the size
 
 # STEP 5a: create an independent tidy dataset [from the combined dataset]
 # that records the average of every measurement per subject and per activity
-# There probably is a more efficient way to calculate this.
-single_row <- data.frame(combined[1,])  # init with all columns
-tidy_dataset <- data.frame()            # build this up
-# subjects*activities = 30*6 = 180 rows, each with 3+561 columns
-totrows <- length(unique(combined$subID)) * nrow(activities)
-row <- 0
-for (subj in unique(combined$subID)) {
-    for (activity in sort(unique(as.integer(combined$actID)))) {
-        single_row$type <- TRAIN    # assume TRAIN, then override
-        if(subj %in% test_subjects) single_row$type <- TEST    # TEST
-        single_row$subID <- subj
-        single_row$actID <- activity
-        qrows <- which(combined$subID == subj & 
+system.time(
+if(agg == 1)    # much faster
+    tidy_dataset <- aggregate(. ~ actID+subID, data=combined, mean)
+else {
+    single_row <- data.frame(combined[1,])  # init with all columns
+    tidy_dataset <- data.frame()            # build this up
+    # subjects*activities = 30*6 = 180 rows, each with 3+561 columns
+    totrows <- length(unique(combined$subID)) * nrow(activities)
+    row <- 0
+    for (subj in unique(combined$subID)) {
+        for (activity in sort(unique(as.integer(combined$actID)))) {
+            single_row$type <- TRAIN    # assume TRAIN, then override
+            if(subj %in% test_subjects) single_row$type <- TEST    # TEST
+            single_row$subID <- subj
+            single_row$actID <- activity
+            qrows <- which(combined$subID == subj & 
                 as.integer(combined$actID) == activities$actID[activity])
-        for (measure in c(4:ncol(combined))) {
-            single_row[1,measure] <- mean(combined[qrows,measure])
-        }
-        tidy_dataset <- rbind(tidy_dataset,single_row)
-        row <- row + 1
-        cat("row:", row," of", totrows, "  subj: ", subj, "-",
+            for (measure in c(4:ncol(combined))) {
+                single_row[1,measure] <- mean(combined[qrows,measure])
+            }
+            tidy_dataset <- rbind(tidy_dataset,single_row)
+            row <- row + 1
+            cat("row:", row," of", totrows, "  subj: ", subj, "-",
                 c("TRAIN","TEST")[single_row$type],
                 "  activity: ", activities$type[activity], "\n")
+        }
     }
+    tidy_dataset$actID <- factor(tidy_dataset$actID, labels = activities$type)
 }
-
+)
 tidy_dataset$type <- factor(tidy_dataset$type, labels = c("TRAIN","TEST"))
-tidy_dataset$actID <- factor(tidy_dataset$actID, labels = activities$type)
 
 # STEP 5b: create a csv file for tidy_dataset
-write.csv(tidy_dataset, "tidy_dataset.csv")
+write.csv(tidy_dataset, "tidy_dataset.csv", row.names = FALSE)
 
 # now read it back
 getit <- read.csv("tidy_dataset.csv", stringsAsFactors = TRUE)
-                  
+
 # show object memory usage
 object.size(combined)
 object.size(extracted)
